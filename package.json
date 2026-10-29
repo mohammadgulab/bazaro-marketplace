@@ -1,0 +1,48 @@
+{
+  "name": "bazaro-marketplace",
+  "version": "1.0.0",
+  "description": "Full stack online marketplace with Node.js, Express and SQLite: products, search and filters, cart, wishlist, JWT accounts, checkout with order history and an admin panel.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/seed.js",
+    "build:static": "node scripts/build-static.js",
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "sqlite",
+    "ecommerce",
+    "marketplace",
+    "jwt",
+    "rest-api",
+    "shopping-cart"
+  ],
+  "author": "Mohammad Gulab",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mohammadgulab/bazaro-marketplace"
+  },
+  "homepage": "https://mohammadgulab.github.io/bazaro-marketplace/",
+  "engines": {
+    "node": ">=18"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^4.22.3",
+    "jsonwebtoken": "^9.0.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2",
+    "supertest": "^7.3.1"
+  }
+}
