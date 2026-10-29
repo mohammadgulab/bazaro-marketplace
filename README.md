@@ -29,6 +29,7 @@ A marketplace web app in the style of the big online stores, built with **Node.j
 - Product page with image gallery and hover zoom, discount and VAT info, delivery date, stock status, quantity, buy now, reviews with rating bars and related products
 - Slide-out cart drawer with quantity controls, free delivery progress bar and VAT breakdown
 - Sign up and sign in, wishlist, checkout with Saudi phone and postal code checks, order confirmation with a tracker, order history
+- Premium look: Gold membership strip, product badges (Best seller, Limited, Premium), live deal countdown, luxury banners, brand row, trust badges, skeleton loaders and scroll animations
 - Responsive from 360 px phones to wide desktops, full screen mobile menu and filter sheet, reduced motion support
 
 **API and backend**
