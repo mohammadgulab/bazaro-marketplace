@@ -1,0 +1,634 @@
+// Starter catalogue used by the seed script and the static demo.
+// Prices are in SAR and include VAT.
+
+const categories = [
+  {
+    "slug": "electronics",
+    "name": "Electronics"
+  },
+  {
+    "slug": "fashion",
+    "name": "Fashion"
+  },
+  {
+    "slug": "home-kitchen",
+    "name": "Home & Kitchen"
+  },
+  {
+    "slug": "sports",
+    "name": "Sports & Fitness"
+  },
+  {
+    "slug": "beauty",
+    "name": "Beauty & Fragrance"
+  },
+  {
+    "slug": "stationery",
+    "name": "Books & Stationery"
+  }
+];
+
+const products = [
+  {
+    "slug": "wireless-earbuds",
+    "name": "AirLite Pro Wireless Earbuds",
+    "brand": "AirLite",
+    "category": "electronics",
+    "price": 149,
+    "mrp": 229,
+    "rating": 4.5,
+    "reviews": 1284,
+    "stock": 12,
+    "description": "Pocket-size earbuds with active noise cancelling, 30 hours of total playback with the case, and fast USB-C charging.",
+    "highlights": [
+      "Active noise cancelling",
+      "30 h battery with case",
+      "IPX4 sweat resistant",
+      "USB-C fast charge"
+    ],
+    "images": [
+      "img/wireless-earbuds-1.webp",
+      "img/wireless-earbuds-2.webp",
+      "img/wireless-earbuds-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": true
+  },
+  {
+    "slug": "smartwatch",
+    "name": "Pulse S2 Smartwatch",
+    "brand": "Pulse",
+    "category": "electronics",
+    "price": 299,
+    "mrp": 449,
+    "rating": 4.3,
+    "reviews": 862,
+    "stock": 8,
+    "description": "Track steps, heart rate and sleep, read notifications and pick from dozens of watch faces. Up to 7 days on one charge.",
+    "highlights": [
+      "1.8 inch AMOLED display",
+      "Heart rate and SpO2",
+      "7 day battery",
+      "5 ATM water resistant"
+    ],
+    "images": [
+      "img/smartwatch-1.webp",
+      "img/smartwatch-2.webp",
+      "img/smartwatch-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": true
+  },
+  {
+    "slug": "headphones",
+    "name": "Dune Over-Ear Headphones",
+    "brand": "Dune Audio",
+    "category": "electronics",
+    "price": 259,
+    "mrp": 399,
+    "rating": 4.6,
+    "reviews": 2031,
+    "stock": 25,
+    "description": "Soft memory foam cushions, deep bass and a 40 hour battery. Folds flat for travel.",
+    "highlights": [
+      "40 h battery",
+      "Bluetooth 5.3",
+      "Foldable design",
+      "Built-in mic"
+    ],
+    "images": [
+      "img/headphones-1.webp",
+      "img/headphones-2.webp",
+      "img/headphones-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": true
+  },
+  {
+    "slug": "bt-speaker",
+    "name": "Wave Mini Bluetooth Speaker",
+    "brand": "Wave",
+    "category": "electronics",
+    "price": 119,
+    "mrp": 169,
+    "rating": 4.4,
+    "reviews": 745,
+    "stock": 60,
+    "description": "Loud, clear 360 degree sound in a speaker that fits in your hand. Pair two for stereo.",
+    "highlights": [
+      "360 degree sound",
+      "12 h playtime",
+      "Stereo pairing",
+      "Splash proof"
+    ],
+    "images": [
+      "img/bt-speaker-1.webp",
+      "img/bt-speaker-2.webp",
+      "img/bt-speaker-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": false
+  },
+  {
+    "slug": "power-bank",
+    "name": "Volt 20000 mAh Power Bank",
+    "brand": "Volt",
+    "category": "electronics",
+    "price": 89,
+    "mrp": 139,
+    "rating": 4.2,
+    "reviews": 1530,
+    "stock": 3,
+    "description": "Charge your phone up to four times. Two USB-C ports and one USB-A, with 22.5 W fast charging.",
+    "highlights": [
+      "20000 mAh",
+      "22.5 W fast charge",
+      "3 output ports",
+      "Aluminium body"
+    ],
+    "images": [
+      "img/power-bank-1.webp",
+      "img/power-bank-2.webp",
+      "img/power-bank-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": false
+  },
+  {
+    "slug": "keyboard",
+    "name": "Keys68 Mechanical Keyboard",
+    "brand": "Keys68",
+    "category": "electronics",
+    "price": 199,
+    "mrp": 279,
+    "rating": 4.7,
+    "reviews": 412,
+    "stock": 3,
+    "description": "Compact 68-key layout with hot-swap switches, soft tactile feel and a detachable USB-C cable.",
+    "highlights": [
+      "68 keys",
+      "Hot-swap switches",
+      "PBT keycaps",
+      "Wired and Bluetooth"
+    ],
+    "images": [
+      "img/keyboard-1.webp",
+      "img/keyboard-2.webp",
+      "img/keyboard-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": false
+  },
+  {
+    "slug": "tablet",
+    "name": "Slate 10 Tablet with Stylus",
+    "brand": "Slate",
+    "category": "electronics",
+    "price": 899,
+    "mrp": 1199,
+    "rating": 4.4,
+    "reviews": 388,
+    "stock": 40,
+    "description": "A 10.5 inch tablet for notes, reading and video, with a pressure-sensitive stylus in the box.",
+    "highlights": [
+      "10.5 inch display",
+      "128 GB storage",
+      "Stylus included",
+      "10 h battery"
+    ],
+    "images": [
+      "img/tablet-1.webp",
+      "img/tablet-2.webp",
+      "img/tablet-3.webp"
+    ],
+    "seller": "Jeddah Gadgets Hub",
+    "deal": true
+  },
+  {
+    "slug": "tshirt",
+    "name": "Everyday Cotton T-Shirt",
+    "brand": "Basico",
+    "category": "fashion",
+    "price": 39,
+    "mrp": 69,
+    "rating": 4.3,
+    "reviews": 3120,
+    "stock": 3,
+    "description": "Soft combed cotton tee with a regular fit that keeps its shape wash after wash.",
+    "highlights": [
+      "100% combed cotton",
+      "Regular fit",
+      "Sizes S to XXL",
+      "Machine washable"
+    ],
+    "images": [
+      "img/tshirt-1.webp",
+      "img/tshirt-2.webp",
+      "img/tshirt-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": false
+  },
+  {
+    "slug": "sneakers",
+    "name": "CloudStep Running Sneakers",
+    "brand": "CloudStep",
+    "category": "fashion",
+    "price": 229,
+    "mrp": 329,
+    "rating": 4.5,
+    "reviews": 967,
+    "stock": 12,
+    "description": "Light, breathable runners with a cushioned sole for daily runs and long days on your feet.",
+    "highlights": [
+      "Breathable mesh",
+      "Cushioned sole",
+      "Non-slip grip",
+      "Sizes 39 to 46"
+    ],
+    "images": [
+      "img/sneakers-1.webp",
+      "img/sneakers-2.webp",
+      "img/sneakers-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": true
+  },
+  {
+    "slug": "backpack",
+    "name": "Trail Canvas Backpack",
+    "brand": "Trail Co",
+    "category": "fashion",
+    "price": 159,
+    "mrp": 229,
+    "rating": 4.6,
+    "reviews": 581,
+    "stock": 40,
+    "description": "Waxed canvas backpack with leather straps, a padded laptop sleeve and plenty of pockets.",
+    "highlights": [
+      "Fits 15.6 inch laptop",
+      "Water resistant canvas",
+      "25 litre capacity",
+      "Padded straps"
+    ],
+    "images": [
+      "img/backpack-1.webp",
+      "img/backpack-2.webp",
+      "img/backpack-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": false
+  },
+  {
+    "slug": "sunglasses",
+    "name": "Tortoise Classic Sunglasses",
+    "brand": "Tortoise",
+    "category": "fashion",
+    "price": 79,
+    "mrp": 129,
+    "rating": 4.1,
+    "reviews": 442,
+    "stock": 3,
+    "description": "Timeless round frames with polarised UV400 lenses and a hard case.",
+    "highlights": [
+      "Polarised lenses",
+      "UV400 protection",
+      "Hard case included",
+      "Unisex"
+    ],
+    "images": [
+      "img/sunglasses-1.webp",
+      "img/sunglasses-2.webp",
+      "img/sunglasses-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": false
+  },
+  {
+    "slug": "watch-leather",
+    "name": "Heritage Leather Watch",
+    "brand": "Heritage",
+    "category": "fashion",
+    "price": 249,
+    "mrp": 349,
+    "rating": 4.5,
+    "reviews": 628,
+    "stock": 40,
+    "description": "A clean analog dial on a genuine leather strap. Water resistant for everyday wear.",
+    "highlights": [
+      "Quartz movement",
+      "Genuine leather strap",
+      "3 ATM water resistant",
+      "40 mm case"
+    ],
+    "images": [
+      "img/watch-leather-1.webp",
+      "img/watch-leather-2.webp",
+      "img/watch-leather-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": false
+  },
+  {
+    "slug": "hoodie",
+    "name": "Cozy Fleece Hoodie",
+    "brand": "Cozy Wear",
+    "category": "fashion",
+    "price": 99,
+    "mrp": 149,
+    "rating": 4.4,
+    "reviews": 1205,
+    "stock": 8,
+    "description": "Brushed fleece hoodie with a kangaroo pocket and a relaxed fit.",
+    "highlights": [
+      "Cotton blend fleece",
+      "Relaxed fit",
+      "Kangaroo pocket",
+      "Sizes S to XXL"
+    ],
+    "images": [
+      "img/hoodie-1.webp",
+      "img/hoodie-2.webp",
+      "img/hoodie-3.webp"
+    ],
+    "seller": "Al Noor Fashion",
+    "deal": false
+  },
+  {
+    "slug": "coffee-maker",
+    "name": "Bloom Pour-Over Coffee Set",
+    "brand": "Bloom",
+    "category": "home-kitchen",
+    "price": 119,
+    "mrp": 169,
+    "rating": 4.7,
+    "reviews": 354,
+    "stock": 3,
+    "description": "Glass carafe and reusable dripper for a clean, smooth cup at home.",
+    "highlights": [
+      "600 ml glass carafe",
+      "Reusable steel filter",
+      "Heat resistant glass",
+      "Dishwasher safe"
+    ],
+    "images": [
+      "img/coffee-maker-1.webp",
+      "img/coffee-maker-2.webp",
+      "img/coffee-maker-3.webp"
+    ],
+    "seller": "Red Sea Home",
+    "deal": true
+  },
+  {
+    "slug": "mug-set",
+    "name": "Terracotta Mug Set of 2",
+    "brand": "Terra Home",
+    "category": "home-kitchen",
+    "price": 59,
+    "mrp": 89,
+    "rating": 4.6,
+    "reviews": 812,
+    "stock": 3,
+    "description": "Handmade speckled ceramic mugs that keep your tea and coffee warm longer.",
+    "highlights": [
+      "Set of 2",
+      "350 ml each",
+      "Microwave safe",
+      "Dishwasher safe"
+    ],
+    "images": [
+      "img/mug-set-1.webp",
+      "img/mug-set-2.webp",
+      "img/mug-set-3.webp"
+    ],
+    "seller": "Red Sea Home",
+    "deal": false
+  },
+  {
+    "slug": "desk-lamp",
+    "name": "Halo LED Desk Lamp",
+    "brand": "Halo",
+    "category": "home-kitchen",
+    "price": 109,
+    "mrp": 159,
+    "rating": 4.4,
+    "reviews": 503,
+    "stock": 25,
+    "description": "Warm, eye-friendly light with three brightness levels and a solid wooden base.",
+    "highlights": [
+      "3 brightness levels",
+      "Warm white LED",
+      "Wooden base",
+      "USB powered"
+    ],
+    "images": [
+      "img/desk-lamp-1.webp",
+      "img/desk-lamp-2.webp",
+      "img/desk-lamp-3.webp"
+    ],
+    "seller": "Red Sea Home",
+    "deal": false
+  },
+  {
+    "slug": "cookware",
+    "name": "ProCook Non-Stick Pan 28 cm",
+    "brand": "ProCook",
+    "category": "home-kitchen",
+    "price": 89,
+    "mrp": 139,
+    "rating": 4.3,
+    "reviews": 1678,
+    "stock": 25,
+    "description": "Even heating, easy release non-stick coating and a cool-touch handle. Works on all hobs.",
+    "highlights": [
+      "28 cm diameter",
+      "PFOA-free coating",
+      "Induction ready",
+      "Cool-touch handle"
+    ],
+    "images": [
+      "img/cookware-1.webp",
+      "img/cookware-2.webp",
+      "img/cookware-3.webp"
+    ],
+    "seller": "Red Sea Home",
+    "deal": false
+  },
+  {
+    "slug": "plant-pot",
+    "name": "Mini Succulent in Ceramic Pot",
+    "brand": "Greenly",
+    "category": "home-kitchen",
+    "price": 35,
+    "mrp": 55,
+    "rating": 4.8,
+    "reviews": 926,
+    "stock": 3,
+    "description": "A real, easy-care succulent in a matte white pot. Perfect for desks and shelves.",
+    "highlights": [
+      "Live plant",
+      "Matte ceramic pot",
+      "Low maintenance",
+      "Gift ready"
+    ],
+    "images": [
+      "img/plant-pot-1.webp",
+      "img/plant-pot-2.webp",
+      "img/plant-pot-3.webp"
+    ],
+    "seller": "Red Sea Home",
+    "deal": false
+  },
+  {
+    "slug": "water-bottle",
+    "name": "Hydro Steel Bottle 750 ml",
+    "brand": "Hydro",
+    "category": "sports",
+    "price": 69,
+    "mrp": 99,
+    "rating": 4.7,
+    "reviews": 2210,
+    "stock": 8,
+    "description": "Double-wall insulated bottle that keeps drinks cold for 24 hours and hot for 12.",
+    "highlights": [
+      "750 ml",
+      "Cold 24 h, hot 12 h",
+      "Leak-proof lid",
+      "BPA free"
+    ],
+    "images": [
+      "img/water-bottle-1.webp",
+      "img/water-bottle-2.webp",
+      "img/water-bottle-3.webp"
+    ],
+    "seller": "FitZone KSA",
+    "deal": false
+  },
+  {
+    "slug": "yoga-mat",
+    "name": "FlexGrip Yoga Mat 6 mm",
+    "brand": "FlexGrip",
+    "category": "sports",
+    "price": 79,
+    "mrp": 119,
+    "rating": 4.5,
+    "reviews": 1340,
+    "stock": 3,
+    "description": "Thick, non-slip mat with a carry strap for home workouts and studio classes.",
+    "highlights": [
+      "6 mm thick",
+      "Non-slip surface",
+      "Carry strap",
+      "Easy to clean"
+    ],
+    "images": [
+      "img/yoga-mat-1.webp",
+      "img/yoga-mat-2.webp",
+      "img/yoga-mat-3.webp"
+    ],
+    "seller": "FitZone KSA",
+    "deal": false
+  },
+  {
+    "slug": "dumbbells",
+    "name": "Hex Dumbbells Pair 5 kg",
+    "brand": "IronHex",
+    "category": "sports",
+    "price": 149,
+    "mrp": 199,
+    "rating": 4.6,
+    "reviews": 690,
+    "stock": 40,
+    "description": "Rubber-coated hex dumbbells that do not roll, with a knurled chrome grip.",
+    "highlights": [
+      "2 x 5 kg",
+      "Anti-roll hex shape",
+      "Rubber coated",
+      "Knurled grip"
+    ],
+    "images": [
+      "img/dumbbells-1.webp",
+      "img/dumbbells-2.webp",
+      "img/dumbbells-3.webp"
+    ],
+    "seller": "FitZone KSA",
+    "deal": true
+  },
+  {
+    "slug": "skincare",
+    "name": "Glow Daily Skincare Duo",
+    "brand": "Glow Lab",
+    "category": "beauty",
+    "price": 129,
+    "mrp": 189,
+    "rating": 4.4,
+    "reviews": 577,
+    "stock": 25,
+    "description": "A light vitamin C serum and a daily moisturiser for soft, bright skin.",
+    "highlights": [
+      "30 ml serum",
+      "50 ml moisturiser",
+      "For all skin types",
+      "Fragrance free"
+    ],
+    "images": [
+      "img/skincare-1.webp",
+      "img/skincare-2.webp",
+      "img/skincare-3.webp"
+    ],
+    "seller": "Bazaro Retail",
+    "deal": false
+  },
+  {
+    "slug": "perfume",
+    "name": "Amber Oud Eau de Parfum",
+    "brand": "Amber House",
+    "category": "beauty",
+    "price": 189,
+    "mrp": 279,
+    "rating": 4.6,
+    "reviews": 1102,
+    "stock": 3,
+    "description": "Warm amber and oud with a soft vanilla finish. Long lasting, 100 ml.",
+    "highlights": [
+      "100 ml",
+      "Long lasting",
+      "Amber, oud, vanilla",
+      "Gift box"
+    ],
+    "images": [
+      "img/perfume-1.webp",
+      "img/perfume-2.webp",
+      "img/perfume-3.webp"
+    ],
+    "seller": "Bazaro Retail",
+    "deal": true
+  },
+  {
+    "slug": "notebook",
+    "name": "Kraft Notebook Pack of 3",
+    "brand": "Kraftline",
+    "category": "stationery",
+    "price": 29,
+    "mrp": 45,
+    "rating": 4.5,
+    "reviews": 1890,
+    "stock": 40,
+    "description": "A5 ruled notebooks with recycled kraft covers and smooth 80 gsm paper, plus a gel pen.",
+    "highlights": [
+      "Pack of 3, A5",
+      "80 gsm ruled paper",
+      "Recycled covers",
+      "Gel pen included"
+    ],
+    "images": [
+      "img/notebook-1.webp",
+      "img/notebook-2.webp",
+      "img/notebook-3.webp"
+    ],
+    "seller": "Bazaro Retail",
+    "deal": false
+  }
+];
+
+module.exports = { categories, products };
