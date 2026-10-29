@@ -18,7 +18,23 @@
     filter: '<svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg>',
     close: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     left: '<svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>',
-    right: '<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>'
+    right: '<svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>',
+    crown: '<svg viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/><path d="M5 19h14"/></svg>',
+    bolt: '<svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>',
+    percent: '<svg viewBox="0 0 24 24"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>',
+    headset: '<svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg>',
+    lock: '<svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
+    undo: '<svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>',
+    badge: '<svg viewBox="0 0 24 24"><path d="M12 2l2.4 2.2 3.2-.4.9 3.1 2.9 1.5-1 3.1 1 3.1-2.9 1.5-.9 3.1-3.2-.4L12 22l-2.4-2.2-3.2.4-.9-3.1L2.6 15.6l1-3.1-1-3.1 2.9-1.5.9-3.1 3.2.4z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>',
+    phone: '<svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>'
+  };
+  const CAT_ICON = {
+    electronics: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+    fashion: '<svg viewBox="0 0 24 24"><path d="M8 3 3 6l2 5 2-1v11h10V10l2 1 2-5-5-3c-.5 1.7-2 3-4 3s-3.5-1.3-4-3z"/></svg>',
+    'home-kitchen': '<svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
+    sports: '<svg viewBox="0 0 24 24"><path d="M6 8v8M18 8v8M3 10v4M21 10v4M6 12h12"/></svg>',
+    beauty: '<svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9l-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.3z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/></svg>',
+    stationery: '<svg viewBox="0 0 24 24"><path d="M4 4h10a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4z"/><path d="M8 8h6M8 12h6"/></svg>'
   };
   const stars = (r) => `<span class="stars" aria-label="${r} out of 5">${[1, 2, 3, 4, 5].map((i) => `<span class="${r >= i - 0.25 ? '' : 'off'}">${ICON.star}</span>`).join('')}</span>`;
 
@@ -133,10 +149,17 @@
 
   // ---------- Product card ----------
   const productCache = new Map();
+  // One badge per card so the grid stays calm.
+  function badgeFor(p) {
+    if (p.deal && p.stock < 10) return '<span class="bdg limited">Limited</span>';
+    if (p.reviews >= 1500) return '<span class="bdg best">Best seller</span>';
+    if (p.price >= 249) return '<span class="bdg premium">Premium</span>';
+    return '';
+  }
   function card(p) {
     productCache.set(p.id, p);
     return `<article class="card">
-      <a class="pic" href="#/p/${p.slug}"><img src="${p.images[0]}" alt="${esc(p.name)}" loading="lazy">${p.discount ? `<span class="disc">-${p.discount}%</span>` : ''}</a>
+      <a class="pic" href="#/p/${p.slug}"><img src="${p.images[0]}" alt="${esc(p.name)}" loading="lazy"><span class="badges">${p.discount ? `<span class="disc">-${p.discount}%</span>` : ''}${badgeFor(p)}</span></a>
       <button class="heart ${state.wish.has(p.id) ? 'on' : ''}" data-wish="${p.id}" aria-label="Save to wishlist">${ICON.heart}</button>
       <div class="body">
         <span class="brand">${esc(p.brand)}</span>
@@ -167,30 +190,49 @@
       Api.get('/products?maxPrice=100&sort=price_asc&limit=8')
     ]);
     const slides = [
-      { cls: 's1', kicker: 'Electronics week', title: 'Up to 40% off audio and wearables', text: 'Earbuds, headphones and smartwatches from top rated sellers. Delivered fast in Jeddah.', link: '#/search?category=electronics&deal=true', cta: 'Shop the deals', img: ['img/headphones-1.webp', 'img/smartwatch-1.webp'] },
-      { cls: 's2', kicker: 'New season', title: 'Fresh looks for every day', text: 'Sneakers, hoodies and watches picked for comfort and style.', link: '#/search?category=fashion', cta: 'Explore fashion', img: ['img/sneakers-1.webp', 'img/watch-leather-1.webp'] },
-      { cls: 's3', kicker: 'Home and kitchen', title: 'Make your home feel new', text: 'Coffee sets, cookware and cosy lighting starting from SAR 35.', link: '#/search?category=home-kitchen', cta: 'Shop home', img: ['img/coffee-maker-1.webp', 'img/plant-pot-1.webp'] }
+      { cls: 's1', kicker: 'Electronics week', title: 'Up to <em>40% off</em> audio and wearables', text: 'Earbuds, headphones and smartwatches from top rated sellers. Delivered fast in Jeddah.', link: '#/search?category=electronics&deal=true', cta: 'Shop the deals', img: ['img/headphones-1.webp', 'img/smartwatch-1.webp'], tag: ['From', 'SAR 149'] },
+      { cls: 's2', kicker: 'New season', title: 'Fresh looks, <em>premium</em> feel', text: 'Sneakers, hoodies and watches picked for comfort and style.', link: '#/search?category=fashion', cta: 'Explore fashion', img: ['img/sneakers-1.webp', 'img/watch-leather-1.webp'], tag: ['Save up to', '30%'] },
+      { cls: 's3', kicker: 'Home and kitchen', title: 'Make your home feel <em>new</em>', text: 'Coffee sets, cookware and cosy lighting starting from SAR 35.', link: '#/search?category=home-kitchen', cta: 'Shop home', img: ['img/coffee-maker-1.webp', 'img/plant-pot-1.webp'], tag: ['Starting', 'SAR 35'] }
     ];
+    const brandNames = ['AirLite', 'Pulse', 'Dune Audio', 'CloudStep', 'Halo', 'Amber House', 'Trail Co', 'Glow Lab', 'Heritage', 'Keys68', 'Bloom', 'FlexGrip'];
+    const brandRow = brandNames.map((b, i) => `<a class="bw b${(i % 5) + 1}" href="#/search?brand=${encodeURIComponent(b)}">${b}</a>`).join('');
     app.innerHTML = `<div class="wrap">
       <section class="hero" aria-roledescription="carousel" aria-label="Offers">
         <div class="slides" id="slides">${slides.map((s, i) => `<div class="slide ${s.cls}" aria-roledescription="slide" aria-label="${i + 1} of 3">
           <div class="copy"><span class="kicker">${s.kicker}</span>${i === 0 ? `<h1>${s.title}</h1>` : `<h2>${s.title}</h2>`}<p>${s.text}</p><a class="btn" href="${s.link}">${s.cta}</a></div>
-          <div class="art" aria-hidden="true"><img src="${s.img[0]}" alt=""><img src="${s.img[1]}" alt=""></div></div>`).join('')}</div>
+          <div class="art" aria-hidden="true"><span class="ring"></span><span class="ring r2"></span><img src="${s.img[0]}" alt=""><img src="${s.img[1]}" alt=""><span class="tag">${s.tag[0]}<b>${s.tag[1]}</b></span></div></div>`).join('')}</div>
         <button class="hero-nav prev" aria-label="Previous offer">${ICON.left}</button><button class="hero-nav next" aria-label="Next offer">${ICON.right}</button>
         <div class="dots">${slides.map((_, i) => `<button aria-label="Show offer ${i + 1}" data-dot="${i}"></button>`).join('')}</div>
       </section>
-      <nav class="cats" aria-label="Shop by category">${state.categories.map((c) => `<a class="cat" href="#/search?category=${c.slug}"><span class="ring"><img src="${catImage[c.slug]}" alt="" loading="lazy"></span>${esc(c.name)}</a>`).join('')}</nav>
-      <section class="promos">
-        <div class="promo"><i>${ICON.truck}</i><div><b>Free delivery over SAR ${Api.RULES.freeShippingFrom}</b><span>Next day in Jeddah and Riyadh</span></div></div>
-        <div class="promo"><i>${ICON.cash}</i><div><b>Cash on delivery</b><span>Pay when your order arrives</span></div></div>
-        <div class="promo"><i>${ICON.shield}</i><div><b>Easy 15 day returns</b><span>On most items, no questions asked</span></div></div>
+      <section class="vip rv" aria-label="Bazaro Gold membership">
+        <div class="vip-head"><span class="vip-crown">${ICON.crown}</span><div><h2>Bazaro <span>Gold</span></h2><p>Our VIP membership. Free for the first 30 days.</p></div></div>
+        <div class="perks">
+          <div class="perk"><i>${ICON.truck}</i><div><b>Free express delivery</b><span>On every order</span></div></div>
+          <div class="perk"><i>${ICON.bolt}</i><div><b>Early deal access</b><span>Before everyone else</span></div></div>
+          <div class="perk"><i>${ICON.percent}</i><div><b>5% cashback</b><span>Back to your wallet</span></div></div>
+          <div class="perk"><i>${ICON.headset}</i><div><b>Priority support</b><span>Answers in minutes</span></div></div>
+        </div>
+        <button class="btn" id="joinGold">Join Gold free</button>
       </section>
-      <section class="sec"><div class="sec-head"><div class="deal-head"><h2>Deals of the day</h2><span class="timer" id="timer"></span></div><a href="#/search?deal=true">See all deals</a></div><div class="rail">${deals.data.map(card).join('')}</div></section>
-      <section class="sec"><div class="sec-head"><h2>Best sellers in Electronics</h2><a href="#/search?category=electronics">See more</a></div><div class="rail">${popular.data.map(card).join('')}</div></section>
-      <section class="sec"><div class="sec-head"><h2>Top rated by shoppers</h2><a href="#/search?sort=rating">See more</a></div><div class="grid">${top.data.map(card).join('')}</div></section>
-      <section class="sec"><div class="sec-head"><h2>Under SAR 100</h2><a href="#/search?maxPrice=100">See more</a></div><div class="grid">${cheap.data.map(card).join('')}</div></section>
+      <nav class="cats rv" aria-label="Shop by category">${state.categories.map((c) => `<a class="cat" href="#/search?category=${c.slug}"><span class="ring"><img src="${catImage[c.slug]}" alt="" loading="lazy"><i>${CAT_ICON[c.slug] || ''}</i></span>${esc(c.name)}<small>${c.count} ${c.count === 1 ? 'item' : 'items'}</small></a>`).join('')}</nav>
+      <section class="sec rv"><div class="sec-head"><div class="deal-head"><h2>Deals of the day <span class="live">LIVE</span></h2><span class="timer" id="timer"></span></div><a href="#/search?deal=true">See all deals</a></div><div class="rail">${deals.data.map(card).join('')}</div></section>
+      <section class="lux rv">
+        <a class="l1" href="#/p/perfume"><div><small>Fragrance house</small><h3>Amber Oud, the signature scent</h3><span>Long lasting, from SAR 189</span></div><img src="img/perfume-1.webp" alt=""></a>
+        <a class="l2" href="#/search?category=electronics&sort=rating"><div><small>Smart living</small><h3>Top rated tech, hand picked</h3><span>Rated 4.5 stars and up</span></div><img src="img/tablet-1.webp" alt=""></a>
+      </section>
+      <section class="sec rv"><div class="sec-head"><h2>Best sellers in Electronics</h2><a href="#/search?category=electronics">See more</a></div><div class="rail">${popular.data.map(card).join('')}</div></section>
+      <section class="trust rv" aria-label="Why shop with us">
+        <div><i>${ICON.lock}</i><span><b>Secure payment</b><span>Encrypted checkout</span></span></div>
+        <div><i>${ICON.undo}</i><span><b>Easy returns</b><span>15 days, free pickup</span></span></div>
+        <div><i>${ICON.truck}</i><span><b>Fast delivery</b><span>Next day in big cities</span></span></div>
+        <div><i>${ICON.badge}</i><span><b>Genuine products</b><span>From checked sellers</span></span></div>
+      </section>
+      <section class="sec rv"><div class="sec-head"><h2>Top rated by shoppers</h2><a href="#/search?sort=rating">See more</a></div><div class="grid">${top.data.map(card).join('')}</div></section>
+      <section class="brands rv" aria-label="Brands on Bazaro"><div class="brand-track">${brandRow}${brandRow}</div></section>
+      <section class="sec rv"><div class="sec-head"><h2>Under SAR 100</h2><a href="#/search?maxPrice=100">See more</a></div><div class="grid">${cheap.data.map(card).join('')}</div></section>
     </div>`;
     bindCards(app);
+    $('#joinGold').onclick = () => toast('Gold is a demo feature in this portfolio project');
     // Carousel: auto plays, pauses on hover, arrows and dots.
     let i = 0;
     const go = (n) => { i = (n + slides.length) % slides.length; $('#slides').style.transform = `translateX(-${i * 100}%)`; $$('[data-dot]').forEach((d, k) => d.classList.toggle('on', k === i)); };
@@ -207,7 +249,7 @@
       const now = new Date(), end = new Date(now); end.setHours(24, 0, 0, 0);
       const s = Math.floor((end - now) / 1000);
       const el = $('#timer');
-      if (el) el.innerHTML = 'Ends in ' + [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map((v) => `<span>${String(v).padStart(2, '0')}</span>`).join('');
+      if (el) el.innerHTML = 'Ends in ' + [[Math.floor(s / 3600), 'hrs'], [Math.floor(s / 60) % 60, 'min'], [s % 60, 'sec']].map(([v, l]) => `<span>${String(v).padStart(2, '0')}<small>${l}</small></span>`).join('');
     };
     tick(); timers.push(setInterval(tick, 1000));
   }
@@ -299,7 +341,8 @@
           <div class="rate">${p.rating} ${stars(p.rating)} <a href="#reviews">${p.reviews.toLocaleString()} ratings</a></div>
           <div class="pricebox">${p.discount ? `<span class="off-tag">-${p.discount}%</span> ` : ''}${sar(p.price)}
             <div class="vat">Inclusive of VAT ${p.mrp > p.price ? `&middot; List price <span class="mrp">SAR ${p.mrp}</span>` : ''}</div>
-            ${p.deal ? '<span class="chip-deal" style="margin-top:6px">Limited time deal</span>' : ''}</div>
+            ${p.deal ? '<span class="chip-deal" style="margin-top:6px">Limited time deal</span>' : ''}
+            <div class="gold-line">${ICON.crown} Gold members get free express delivery and 5% cashback</div></div>
           <div class="offers"><div><b>Cash on delivery</b>Pay at your door</div><div><b>Free returns</b>Within 15 days</div><div><b>Bank offer</b>10% back with WELCOME10</div><div><b>Secure checkout</b>Your data is protected</div></div>
           <h3>About this item</h3><ul>${p.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
           <p>${esc(p.description)}</p>
@@ -523,6 +566,19 @@
     };
   }
 
+  // Grey placeholder cards while a page loads.
+  const skeleton = () => `<div class="wrap" style="padding-top:18px"><div class="skel" style="height:220px;border-radius:20px"></div><div class="grid" style="margin-top:18px">${'<div class="skel-card"><div class="skel"></div><div class="skel skel-line"></div><div class="skel skel-line" style="width:60%"></div></div>'.repeat(4)}</div></div>`;
+
+  // Sections fade up as they scroll into view.
+  let observer;
+  function reveal() {
+    const items = $$('.rv', app);
+    if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach((el) => el.classList.add('in')); return; }
+    if (observer) observer.disconnect();
+    observer = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } }), { rootMargin: '0px 0px 60px 0px' });
+    items.forEach((el) => observer.observe(el));
+  }
+
   // ---------- Router ----------
   async function route() {
     clearTimers();
@@ -530,6 +586,7 @@
     const [path, q = ''] = location.hash.slice(1).split('?');
     const parts = path.split('/').filter(Boolean);
     window.scrollTo({ top: 0, behavior: 'instant' });
+    app.innerHTML = skeleton();
     try {
       if (!parts.length) await viewHome();
       else if (parts[0] === 'search') await viewSearch(q);
@@ -548,6 +605,7 @@
       if (err.status === 401) { Api.token.clear(); state.user = null; updateBadges(); location.hash = '#/login?next=' + encodeURIComponent(location.hash); return; }
       app.innerHTML = `<div class="wrap"><div class="empty panel sec"><h2>${err.status === 404 ? 'Not found' : 'Something went wrong'}</h2><p class="muted">${esc(err.message)}</p><a class="btn" href="#/">Go home</a></div></div>`;
     }
+    reveal();
     const s = new URLSearchParams(q);
     $('#searchInput').value = parts[0] === 'search' ? s.get('q') || '' : '';
     $('#searchCat').value = parts[0] === 'search' ? s.get('category') || '' : '';
@@ -560,7 +618,7 @@
   function buildChrome() {
     const cats = state.categories;
     $('#searchCat').innerHTML = '<option value="">All</option>' + cats.map((c) => `<option value="${c.slug}">${esc(c.name)}</option>`).join('');
-    $('#subnavLinks').innerHTML = `<a href="#/search?deal=true" class="hot">Today's deals</a>` + cats.map((c) => `<a href="#/search?category=${c.slug}">${esc(c.name)}</a>`).join('') + '<a href="#/admin">Sell on Bazaro</a>';
+    $('#subnavLinks').innerHTML = `<a href="#/" class="gold">Bazaro Gold</a><a href="#/search?deal=true" class="hot">Today's deals</a>` + cats.map((c) => `<a href="#/search?category=${c.slug}">${esc(c.name)}</a>`).join('') + '<a href="#/admin">Sell on Bazaro</a>';
     $('#ftrCats').innerHTML = cats.map((c) => `<a href="#/search?category=${c.slug}">${esc(c.name)}</a>`).join('');
     $('#menuBody').innerHTML = `<h6>Shop by category</h6>${cats.map((c) => `<a href="#/search?category=${c.slug}"><img src="${catImage[c.slug]}" alt="">${esc(c.name)}</a>`).join('')}
       <h6>Highlights</h6><a href="#/search?deal=true">Today's deals</a><a href="#/search?sort=rating">Top rated</a><a href="#/search?maxPrice=100">Under SAR 100</a>
@@ -570,6 +628,7 @@
     });
     $('#allBtn').onclick = (e) => { e.stopPropagation(); const m = $('#mega'); m.hidden = !m.hidden; $('#allBtn').setAttribute('aria-expanded', String(!m.hidden)); };
     document.addEventListener('click', (e) => { if (!e.target.closest('#mega') && !e.target.closest('#allBtn')) $('#mega').hidden = true; if (!e.target.closest('.search')) $('#suggest').innerHTML = ''; });
+    $('#nlForm').onsubmit = (e) => { e.preventDefault(); const v = $('#nlEmail').value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) return toast('Enter a valid email', { error: true }); $('#nlEmail').value = ''; toast('Thanks! You are on the list for weekly deals'); };
     $('#burger').onclick = openMenu;
     $('#menuClose').onclick = closeMenu;
     $('#cartBtn').onclick = openDrawer;
